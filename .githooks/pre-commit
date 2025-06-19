@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Abort on error
+set -e
+
+# Path to your .env and output file
+ENV_FILE=".env"
+EXAMPLE_FILE="env.example"
+
+# Check if .env exists
+[ -f "$ENV_FILE" ] || exit 0
+
+# Redact secrets and write to env.example
+# Preserve lines that are comments or empty
+# For variable lines, preserve the key and replace the value with REDACTED
+sed -E 's/^([[:space:]]*[^#[:space:]=]+[[:space:]]*=[[:space:]]*).*/\1REDACTED/' "$ENV_FILE" > "$EXAMPLE_FILE"
+
+# Ensure env.example is staged if it's tracked
+git add "$EXAMPLE_FILE"
+
+exit 0

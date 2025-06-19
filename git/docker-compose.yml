@@ -1,0 +1,15 @@
+---
+services:
+  git:
+    image: charmcli/soft-serve:v0.8.5
+    networks: [web]
+    ports: [22:22, 23232:23232, 23233:23233]
+    environment: ['SOFT_SERVE_INITIAL_ADMIN_KEYS:${ADMIN_SSH_KEY}']
+    volumes: [./git/data:/soft-serve]
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.git.tls.certresolver=cloudflare
+      - traefik.http.routers.git.rule=Host(`git.${DOMAIN}`) || Host(`git.${ALT_DOMAIN}`)
+      - traefik.http.routers.git.tls.domains[0].main=git.${DOMAIN}
+      - traefik.http.routers.git.tls.domains[1].main=git.${ALT_DOMAIN}
+    restart: unless-stopped

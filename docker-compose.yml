@@ -32,5 +32,9 @@ services:
     extends:
       file: ./dyndns/docker-compose.yml
       service: dyndns
+  uptime:
+    extends:
+      file: ./uptime/docker-compose.yml
+      service: uptime
 networks:
   web:

@@ -36,12 +36,11 @@ configuring a full webpage with gitea.
 A single pge meant to track the current status of my servarr/jellyfin
 stack located on a separate server.
 
-# Passwd (not implemented)
+## Vault
 
-If I ever want to start self-hosting a password manager, this is where I would
-put it.
+Simple vaultwarden instance to host my passwords.
 
-# Bots
+## Bots
 
 While bots for discord don't necessarily need an http endpoint, having control
 over them from this monorepo is quite practical.

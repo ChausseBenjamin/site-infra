@@ -1,4 +1,4 @@
-baseURL = 'https://dev.chausse.xyz/'
+baseURL = 'https://chausse.dev/'
 languageCode = 'en-us'
 title = 'Chausse Benjamin'
 theme = 'cranky'

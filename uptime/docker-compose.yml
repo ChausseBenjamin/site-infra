@@ -1,0 +1,13 @@
+---
+services:
+  uptime:
+    image: louislam/uptime-kuma:1
+    volumes: [./data:/app/data]
+    ports: [3001:3001]
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.stats.tls.certresolver=cloudflare
+      - traefik.http.routers.stats.rule=Host(`stats.${DOMAIN}`) || Host(`stats.${ALT_DOMAIN}`)
+      - traefik.http.routers.stats.tls.domains[0].main=stats.${DOMAIN}
+      - traefik.http.routers.stats.tls.domains[1].main=stats.${ALT_DOMAIN}
+

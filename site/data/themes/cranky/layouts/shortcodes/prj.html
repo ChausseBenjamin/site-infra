@@ -1,0 +1,167 @@
+<div class="container">
+  <!-- Loop through all projects -->
+  {{ range first 3 (where .Site.RegularPages "Section" "projects") }}
+  <a class="card" href="{{ .Permalink }}">
+    <h3 class="title">{{ .Title }}</h3>
+    <div class="bar">
+      <div class="emptybar"></div>
+      <div class="filledbar"></div>
+    </div>
+    <p class="summary">
+      {{ $summary := index (split .Content "</p>") 0 }}
+      {{ $summary | plainify }}
+    </p>
+  </a>
+  <!-- End the loop -->
+  {{ end }}
+</div>
+<a class="button projects" href="/projects">All Projects</a>
+<style>
+
+  .card {
+    display: flex;
+    height: auto;
+    width: 230px;
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    background: linear-gradient(-45deg, #111a1f, #222d32);
+    color: var(--text-fg);
+    border-radius: 10px;
+    transition: 0.4s ease-out;
+    position: relative;
+    left: 0px;
+  }
+
+  .title {
+    color: var(--text-fg);
+    font-weight: bold;
+    position: absolute;
+    left: 20px;
+    top: 15px;
+  }
+
+  .summary {
+    text-overflow: ellipsis;
+    height: 230px;
+    width: 210px;
+    margin-top: 80px;
+    margin-left: 10px;
+    margin-right: 10px;
+    top: 70px;
+    left: 20px;
+  }
+
+  .bar {
+    position: absolute;
+    top: 70px;
+    left: 20px;
+    height: 5px;
+    width: 150px;
+  }
+
+  .filledbar {
+    position: absolute;
+    top: 0px;
+    z-index: 3;
+    width: 0px;
+    height: 100%;
+    background: linear-gradient(90deg, #66aabb 0%, #8ea374 22%, #ebcb88 100%);
+    transition: 0.6s ease-out;
+  }
+
+  .card .filledbar {
+    width: 120px;
+    transition: 0.4s ease-out;
+  }
+
+  .readmore {
+    bottom: -30px;
+    right: 10px;
+    color: var(--text-fg);
+    font-weight: bold;
+    transition: 0.4s ease-out;
+  }
+
+  .emptybar {
+    background-color: #2e3033;
+    width: 100%;
+    height: 100%;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 30px;
+    overflow-x: scroll;
+  }
+
+  .card:hover {
+    color: var(--text-fg);
+  }
+
+  /* center the button */
+  .projects {
+    position: relative;
+    left: calc(50% - 50px);
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+@media (hover: hover) {
+
+  .card .filledbar {
+    width: 0px;
+  }
+
+  .card:hover .filledbar {
+    width: 120px;
+    transition: 0.4s ease-out;
+  }
+
+
+  @media (min-width: 730px) {
+
+    .card {
+      box-shadow: -1rem 0 3rem #000;
+    }
+
+    .container {
+      position: relative;
+      height: auto;
+      width: 600px;
+      left: calc(50% - 300px);
+      display: flex;
+      overflow-x: visible;
+
+    }
+
+    .card:not(:first-child) {
+      margin-left: -50px;
+    }
+
+    .card:hover {
+      box-shadow: 0 0 4rem #554;
+      transform: translateY(-20px);
+      transition: 0.4s ease-out;
+      color: var(--text-fg);
+    }
+
+    .card:hover ~ .card {
+      position: relative;
+      left: 70px;
+      transition: 0.4s ease-out;
+    }
+
+    .card:hover > .title {
+      color: var(--header-fg);
+      transition: 0.4s ease-out;
+    }
+
+    .readmore {
+      display: none;
+    }
+
+  }
+}
+</style>

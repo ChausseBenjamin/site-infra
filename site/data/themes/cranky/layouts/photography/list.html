@@ -1,0 +1,16 @@
+{{ define "title" -}} {{ .Title | title }} {{- end }} {{ define "main" -}} {{
+.Content }}
+<!-- Match all files in the gallery folder which are images -->
+<div class="photo-gallery">
+  {{- range sort (resources.Match "images/gallery/*") "Name" "desc" -}} {{
+  $image := . }} {{ $small := $image.Resize "300x webp" }}
+  <a href="{{ .RelPermalink }}" class="photo-item">
+    <img
+      src="{{ $small.RelPermalink }}"
+      alt="{{ $image.Name }}"
+      loading="lazy"
+    />
+  </a>
+  {{ end -}}
+</div>
+{{- end }}

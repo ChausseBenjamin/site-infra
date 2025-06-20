@@ -1,0 +1,7 @@
+baseURL = 'https://dev.chausse.xyz/'
+languageCode = 'en-us'
+title = 'Chausse Benjamin'
+theme = 'cranky'
+[markup.highlight]
+  style='onedark'
+  tabWidth=2

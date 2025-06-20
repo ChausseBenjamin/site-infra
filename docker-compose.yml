@@ -36,5 +36,9 @@ services:
     extends:
       file: ./uptime/docker-compose.yml
       service: uptime
+  vault:
+    extends:
+      file: ./vault/docker-compose.yml
+      service: vault
 networks:
   web:

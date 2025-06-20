@@ -7,6 +7,7 @@ services:
     volumes: [./data:/data]
     environment:
       DOMAIN: https://vault.${DOMAIN}
+      SIGNUPS_ALLOWED: false
     labels:
       - traefik.enable=true
       - traefik.http.routers.vault.tls.certresolver=cloudflare

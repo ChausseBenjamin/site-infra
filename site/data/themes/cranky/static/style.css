@@ -279,7 +279,7 @@ a {
 
 .about-content {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
 }
@@ -298,6 +298,12 @@ a {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     margin-top: 2rem;
+}
+
+@media (max-width: 1000px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
 }
 
 .stat {

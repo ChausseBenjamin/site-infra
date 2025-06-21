@@ -418,7 +418,7 @@ a {
 .project-metrics {
     padding: 1.5rem;
     background: var(--bg-tertiary);
-    display: none;
+    /* display: none; */
 }
 
 .metrics-grid {

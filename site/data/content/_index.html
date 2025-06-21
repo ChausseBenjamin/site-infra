@@ -1,22 +1,45 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language }}">
+<html lang="en">
   <head>
-    <title>{{ if not .IsHome }}{{ .Title | title }} | {{ end }}{{ .Site.Title }}</title>
-    <link rel="canonical" href="{{ .Site.BaseURL }}">
+	<meta name="generator" content="Hugo 0.147.8"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>Chausse Benjamin</title>
+    <link rel="canonical" href="http://localhost:1313/">
     <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+    <link rel='alternate' type='application/rss+xml' title="Chausse Benjamin RSS" href='/index.xml'>
     <link rel='stylesheet' type='text/css' href='/style.css'>
-    {{ with .Site.Params.favicon }}<link rel="icon" href="{{ . }}">
-    {{ end -}}
-    <meta name="description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index, follow">
     <meta charset="utf-8">
   </head>
   <body>
     <main>
-        {{ partial "nav.html" }}
+      <header>
+        <nav>
+  <div class="nav-container">
+      <div class="logo">
+          <img src="logo.png" alt="Chausse Benjamin Logo">
 
-        <!-- Hero Section -->
+      </div>
+      <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+      <label for="menu-toggle" class="mobile-menu-toggle">
+          <div class="hamburger"></div>
+          <div class="hamburger"></div>
+          <div class="hamburger"></div>
+      </label>
+      <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+      </ul>
+  </div>
+</nav>
+
+
+
         <section id="home" class="hero">
           <div class="hero-content">
             <h1>Chausse Benjamin</h1>
@@ -32,7 +55,7 @@
           </div>
         </section>
 
-        <!-- About Section -->
+
         <section id="about" class="about">
           <div class="section">
             <h2 class="section-title">About Me</h2>
@@ -92,7 +115,7 @@
 
 
 
-        <!-- Skills Section -->
+
         <section id="skills" class="section">
           <h2 class="section-title">Technical Expertise</h2>
           <div class="skills-grid">
@@ -145,7 +168,7 @@
         </section>
 
 
-        <!-- Projects Section -->
+
         <section id="projects" class="projects">
 
           <div class="section">
@@ -234,7 +257,7 @@
         </section>
 
 
-        <!-- Contact Section -->
+
         <section id="contact" class="section">
           <h2 class="section-title">Let's Connect</h2>
           <div class="contact-content">
@@ -272,6 +295,9 @@
         </section>
 
 
-  {{ partial "footer.html" }}
+        <footer>
+    <p>&copy; 2025 Benjamin Chausse. Built with care, not bloat.</p>
+</footer>
+
   </body>
 </html>

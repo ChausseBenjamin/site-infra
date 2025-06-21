@@ -1,7 +1,3 @@
 baseURL = 'https://chausse.dev/'
-languageCode = 'en-us'
+languageCode = 'en-ca'
 title = 'Chausse Benjamin'
-theme = 'cranky'
-[markup.highlight]
-  style='onedark'
-  tabWidth=2

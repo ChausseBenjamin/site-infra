@@ -23,12 +23,30 @@
 .portfolio-container {
   padding: 1rem;
 }
+
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
   padding: 2rem 1rem;
   align-items: start;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 1rem;
+    padding: 1rem 0.5rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+  .portfolio-grid {
+    padding: 0.5rem 0.25rem;
+    gap: 0.75rem;
+  }
 }
 
 .portfolio-grid a {
@@ -39,6 +57,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   justify-self: center;
   cursor: pointer;
+  max-width: 100%; /* Ensure images don't overflow */
 }
 
 .portfolio-grid a:hover {
@@ -46,6 +65,13 @@
   box-shadow:
     0 8px 15px rgba(153, 0, 0, 0.4),
     0 0 20px rgba(201, 54, 56, 0.6);
+}
+
+/* Reduce hover effect on mobile for better touch experience */
+@media (max-width: 768px) {
+  .portfolio-grid a:hover {
+    transform: translateY(-4px);
+  }
 }
 
 .portfolio-grid img {
@@ -81,6 +107,14 @@
   justify-content: center;
 }
 
+/* Mobile modal adjustments */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 10px;
+    width: 95%;
+  }
+}
+
 .modal img {
   max-width: 100%;
   max-height: 90vh;
@@ -99,6 +133,16 @@
   cursor: pointer;
   z-index: 1001;
   transition: color 0.3s ease;
+}
+
+/* Make close button more touch-friendly on mobile */
+@media (max-width: 768px) {
+  .close {
+    top: 10px;
+    right: 15px;
+    font-size: 35px;
+    padding: 10px; /* Larger touch target */
+  }
 }
 
 .close:hover {
@@ -124,6 +168,69 @@ body.modal-open {
   overflow: hidden;
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImage');
+  const closeBtn = document.querySelector('.close');
+  const loading = document.querySelector('.loading');
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+  // Open modal when clicking on portfolio item
+  portfolioItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const fullSrc = this.getAttribute('data-full-src');
+      const alt = this.getAttribute('data-alt');
+
+      // Show modal and loading state
+      modal.style.display = 'block';
+      document.body.classList.add('modal-open');
+      loading.style.display = 'block';
+      modalImg.style.display = 'none';
+
+      // Load full-size image
+      const img = new Image();
+      img.onload = function() {
+        modalImg.src = fullSrc;
+        modalImg.alt = alt;
+        modalImg.style.display = 'block';
+        loading.style.display = 'none';
+      };
+      img.onerror = function() {
+        loading.textContent = 'Error loading image';
+      };
+      img.src = fullSrc;
+    });
+  });
+
+  // Close modal functions
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+    modalImg.src = ''; // Clear src to stop loading
+  }
+
+  // Close when clicking X
+  closeBtn.addEventListener('click', closeModal);
+
+  // Close when clicking outside image
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Close with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.style.display === 'block') {
+      closeModal();
+    }
+  });
+});
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

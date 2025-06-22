@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language }}">
-  {{ partial "header.html" }}
+  {{- if .IsHome -}}
+  {{/* Home page: Only set Title to site title */}}
+  {{ partial "header.html" (dict "Title" .Site.Title "Site" .Site "Params" .Params "Summary" .Summary) }}
+{{- else -}}
+  {{/* Other pages: Set Title to site title and Description to page title */}}
+  {{ partial "header.html" (dict "Title" .Site.Title "Description" .Page.Title "Site" .Site "Params" .Params "Summary" .Summary) }}
+{{- end -}}
   <body>
     <main>
         {{ partial "nav.html" (dict "Title" .Site.Title) }}

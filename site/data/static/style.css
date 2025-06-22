@@ -37,6 +37,10 @@ nav {
     border-bottom: 1px solid var(--border);
 }
 
+.nav-container h2 {
+  white-space: nowrap;
+}
+
 a {
   text-decoration: none;
 }
@@ -137,6 +141,9 @@ a {
 
 /* Mobile Navigation */
 @media (max-width: 800px) {
+    .nav-container .logo h2 {
+      font-size: clamp(1rem, 4vw, 1.5rem);
+    }
     .mobile-menu-toggle {
         display: flex;
     }

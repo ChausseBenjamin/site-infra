@@ -31,16 +31,19 @@ A simple [soft-serve][1] instance making it easy to manage git
 repositories over ssh without relying on github or going through the hassle of
 configuring a full webpage with gitea.
 
-## Uptime
-
-A single pge meant to track the current status of my servarr/jellyfin
-stack located on a separate server.
-
 ## Vault
 
-Simple vaultwarden instance to host my passwords.
+Simple vaultwarden instance to host my passwords. This makes me a smaller
+attack vector since targetting server hosting thousands of users is more
+valuable than a 1-user instance.
 
-## Bots
+## Uptime
+
+A single pge meant to track the current status of the services mentionned above
+(even sending me notifications if any of them are down). Also tracks my
+servarr/jellyfin stack located on a separate server.
+
+## Bots (not implemented)
 
 While bots for discord don't necessarily need an http endpoint, having control
 over them from this monorepo is quite practical.

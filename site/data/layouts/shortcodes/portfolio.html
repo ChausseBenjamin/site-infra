@@ -14,6 +14,13 @@
 <div id="imageModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
+    <a href="#" class="download-btn" download>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7,10 12,15 17,10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    </a>
     <img id="modalImage" src="" alt="">
     <div class="loading">Loading...</div>
   </div>
@@ -128,25 +135,85 @@
   top: 20px;
   right: 30px;
   color: white;
-  font-size: 40px;
+  font-size: 24px;
   font-weight: bold;
   cursor: pointer;
   z-index: 1001;
-  transition: color 0.3s ease;
-}
-
-/* Make close button more touch-friendly on mobile */
-@media (max-width: 768px) {
-  .close {
-    top: 10px;
-    right: 15px;
-    font-size: 35px;
-    padding: 10px; /* Larger touch target */
-  }
+  transition: all 0.3s ease;
+  padding: 12px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  text-decoration: none;
+  user-select: none;
 }
 
 .close:hover {
   color: #ccc;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Download button - positioned opposite to close button */
+.download-btn {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
+  transition: all 0.3s ease;
+  padding: 12px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+.download-btn:hover {
+  color: #ccc;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.download-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Make buttons more touch-friendly on mobile */
+@media (max-width: 768px) {
+  .close {
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    width: 44px;
+    height: 44px;
+    padding: 12px;
+  }
+
+  .download-btn {
+    top: 10px;
+    left: 15px;
+    width: 44px;
+    height: 44px;
+    padding: 12px;
+  }
+
+  .download-btn svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .loading {
@@ -174,6 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const modal = document.getElementById('imageModal');
   const modalImg = document.getElementById('modalImage');
   const closeBtn = document.querySelector('.close');
+  const downloadBtn = document.querySelector('.download-btn');
   const loading = document.querySelector('.loading');
   const portfolioItems = document.querySelectorAll('.portfolio-item');
 
@@ -190,6 +258,10 @@ document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.add('modal-open');
       loading.style.display = 'block';
       modalImg.style.display = 'none';
+
+      // Update download button
+      downloadBtn.href = fullSrc;
+      downloadBtn.download = alt || 'image';
 
       // Load full-size image
       const img = new Image();
@@ -211,16 +283,19 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.style.display = 'none';
     document.body.classList.remove('modal-open');
     modalImg.src = ''; // Clear src to stop loading
+    downloadBtn.href = '#'; // Clear download link
   }
 
   // Close when clicking X
   closeBtn.addEventListener('click', closeModal);
 
-  // Close when clicking outside image
+  // Close when clicking outside image, close button, or download button
   modal.addEventListener('click', function(e) {
-    if (e.target === modal) {
-      closeModal();
+    // Don't close if clicking on the image, close button, or download button
+    if (e.target === modalImg || e.target === closeBtn || e.target === downloadBtn || downloadBtn.contains(e.target)) {
+      return;
     }
+    closeModal();
   });
 
   // Close with Escape key
@@ -229,68 +304,15 @@ document.addEventListener('DOMContentLoaded', function() {
       closeModal();
     }
   });
-});
-</script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById('imageModal');
-  const modalImg = document.getElementById('modalImage');
-  const closeBtn = document.querySelector('.close');
-  const loading = document.querySelector('.loading');
-  const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-  // Open modal when clicking on portfolio item
-  portfolioItems.forEach(item => {
-    item.addEventListener('click', function(e) {
-      e.preventDefault();
-
-      const fullSrc = this.getAttribute('data-full-src');
-      const alt = this.getAttribute('data-alt');
-
-      // Show modal and loading state
-      modal.style.display = 'block';
-      document.body.classList.add('modal-open');
-      loading.style.display = 'block';
-      modalImg.style.display = 'none';
-
-      // Load full-size image
-      const img = new Image();
-      img.onload = function() {
-        modalImg.src = fullSrc;
-        modalImg.alt = alt;
-        modalImg.style.display = 'block';
-        loading.style.display = 'none';
-      };
-      img.onerror = function() {
-        loading.textContent = 'Error loading image';
-      };
-      img.src = fullSrc;
-    });
+  // Prevent modal from closing when clicking download button or close button
+  downloadBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
   });
 
-  // Close modal functions
-  function closeModal() {
-    modal.style.display = 'none';
-    document.body.classList.remove('modal-open');
-    modalImg.src = ''; // Clear src to stop loading
-  }
-
-  // Close when clicking X
-  closeBtn.addEventListener('click', closeModal);
-
-  // Close when clicking outside image
-  modal.addEventListener('click', function(e) {
-    if (e.target === modal) {
-      closeModal();
-    }
-  });
-
-  // Close with Escape key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modal.style.display === 'block') {
-      closeModal();
-    }
+  closeBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    closeModal();
   });
 });
 </script>

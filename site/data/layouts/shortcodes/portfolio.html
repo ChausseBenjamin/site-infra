@@ -1,0 +1,189 @@
+{{ $images := resources.Match "portfolio/*" }}
+<div class="portfolio-container">
+<div class="portfolio-grid">
+  {{ range sort $images "Name" "desc" }}
+    {{ $thumb := .Fit "400x300" }}
+    <a href="#" class="portfolio-item" data-full-src="{{ .RelPermalink }}" data-alt="{{ .Name }}">
+      <img src="{{ $thumb.RelPermalink }}" alt="{{ .Name }}" loading="lazy">
+    </a>
+  {{ end }}
+</div>
+</div>
+
+<!-- Modal -->
+<div id="imageModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <img id="modalImage" src="" alt="">
+    <div class="loading">Loading...</div>
+  </div>
+</div>
+
+<style>
+.portfolio-container {
+  padding: 1rem;
+}
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+  align-items: start;
+}
+
+.portfolio-grid a {
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  justify-self: center;
+  cursor: pointer;
+}
+
+.portfolio-grid a:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 8px 15px rgba(153, 0, 0, 0.4),
+    0 0 20px rgba(201, 54, 56, 0.6);
+}
+
+.portfolio-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  position: relative;
+  margin: auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 1200px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1001;
+  transition: color 0.3s ease;
+}
+
+.close:hover {
+  color: #ccc;
+}
+
+.loading {
+  position: absolute;
+  color: white;
+  font-size: 18px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Hide scrollbar when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImage');
+  const closeBtn = document.querySelector('.close');
+  const loading = document.querySelector('.loading');
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+  // Open modal when clicking on portfolio item
+  portfolioItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const fullSrc = this.getAttribute('data-full-src');
+      const alt = this.getAttribute('data-alt');
+
+      // Show modal and loading state
+      modal.style.display = 'block';
+      document.body.classList.add('modal-open');
+      loading.style.display = 'block';
+      modalImg.style.display = 'none';
+
+      // Load full-size image
+      const img = new Image();
+      img.onload = function() {
+        modalImg.src = fullSrc;
+        modalImg.alt = alt;
+        modalImg.style.display = 'block';
+        loading.style.display = 'none';
+      };
+      img.onerror = function() {
+        loading.textContent = 'Error loading image';
+      };
+      img.src = fullSrc;
+    });
+  });
+
+  // Close modal functions
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+    modalImg.src = ''; // Clear src to stop loading
+  }
+
+  // Close when clicking X
+  closeBtn.addEventListener('click', closeModal);
+
+  // Close when clicking outside image
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Close with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.style.display === 'block') {
+      closeModal();
+    }
+  });
+});
+</script>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language }}">
+{{ partial "header.html" }}
+<style>
+/* Photo Gallery CSS */
+/* Photography portfolio introduction styling - targets only text paragraphs */
+body p:not(.portfolio-container p):not(footer p) {
+    max-width: 700px;
+    margin: 1.5rem auto;
+    padding: 1.5rem 2.5rem;
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+/* First paragraph gets extra top margin */
+body p:first-of-type:not(.portfolio-container p):not(footer p) {
+    margin-top: 3rem;
+}
+
+/* Last text paragraph before portfolio gets extra bottom margin */
+body p:not(.portfolio-container p):not(footer p):has(+ .portfolio-container),
+body p:not(.portfolio-container p):not(footer p):last-of-type {
+    margin-bottom: 4rem;
+}
+
+/* Subtle decorative background for paragraphs */
+body p:not(.portfolio-container p):not(footer p)::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(153, 0, 0, 0.03) 0%, transparent 70%);
+    animation: subtleFloat 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes subtleFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(180deg); }
+}
+
+@keyframes gentlePulse {
+    0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+    50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body p:not(.portfolio-container p):not(footer p) {
+        margin: 1rem;
+        padding: 1.5rem 2rem;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        line-height: 1.7;
+    }
+
+    body p:first-of-type:not(.portfolio-container p):not(footer p) {
+        margin-top: 2rem;
+    }
+
+    body p:not(.portfolio-container p):not(footer p):has(+ .portfolio-container),
+    body p:not(.portfolio-container p):not(footer p):last-of-type {
+        margin-bottom: 3rem;
+    }
+}
+
+/* Ensure portfolio container styling is preserved */
+.portfolio-container {
+    padding: 0 1rem 1rem;
+}
+
+/* Optional: Add a subtle divider between intro and gallery */
+.portfolio-container::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(135deg, var(--accent) 0%, transparent 100%);
+    margin: 0 auto 3rem;
+    border-radius: 1px;
+}
+</style>
+<body>
+
+{{ partial "nav.html" (dict "Title" .Title) }}
+
+<!-- Photography introduction section -->
+<main>
+    <div class="photo-intro">
+        {{ .Content }}
+    </div>
+</main>
+
+{{ partial "footer.html" }}
+</body>
+</html>

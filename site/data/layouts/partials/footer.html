@@ -1,3 +1,6 @@
 <footer>
   <p>&copy; {{ now.Year }} Benjamin Chausse. Built with care, not bloat.</p>
+  {{ with .Extra }}
+    {{ . | safeHTML }}
+  {{ end }}
 </footer>

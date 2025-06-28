@@ -559,6 +559,11 @@ footer {
     }
 }
 
+/* Ensures Contact is at the top when clicking on the Nav button */
+#contact {
+  height: 90vh;
+}
+
 /* Animations */
 @keyframes fadeInUp {
     from {

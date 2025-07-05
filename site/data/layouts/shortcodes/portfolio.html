@@ -3,8 +3,10 @@
 <div class="portfolio-grid">
   {{ range sort $images "Name" "desc" }}
     {{ $thumb := .Fit "400x300" }}
+    {{ $lrName := printf "lr-%s" $thumb.Name }}
+    {{ $lrThumb := $thumb | resources.Copy $lrName }}
     <a href="#" class="portfolio-item" data-full-src="{{ .RelPermalink }}" data-alt="{{ .Name }}">
-      <img src="{{ $thumb.RelPermalink }}" alt="{{ .Name }}" loading="lazy">
+      <img src="{{ $lrThumb.RelPermalink }}" alt="{{ .Name }}" loading="lazy">
     </a>
   {{ end }}
 </div>

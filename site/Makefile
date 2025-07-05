@@ -1,5 +1,3 @@
-# Makefile
-
 HUGO_DIR = ./data
 HUGO_ENV = production
 HUGO_FLAGS = --gc --minify --environment $(HUGO_ENV)

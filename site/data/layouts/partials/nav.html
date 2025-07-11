@@ -20,3 +20,17 @@
       </ul>
   </div>
 </nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    // Close menu when clicking on any navigation link
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            menuToggle.checked = false;
+        });
+    });
+});
+</script>

@@ -17,25 +17,31 @@
 <!-- Modal -->
 <div id="imageModal" class="modal">
   <div class="modal-content">
-    <span class="close">&times;</span>
-    <a href="#" class="download-btn" download>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="7,10 12,15 17,10"/>
-        <line x1="12" y1="15" x2="12" y2="3"/>
-      </svg>
-    </a>
-    <button class="nav-btn prev-btn" aria-label="Previous image">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="15,18 9,12 15,6"/>
-      </svg>
-    </button>
-    <button class="nav-btn next-btn" aria-label="Next image">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="9,18 15,12 9,6"/>
-      </svg>
-    </button>
-    <img id="modalImage" src="" alt="">
+    <div class="image-container">
+      <div class="top-buttons">
+        <a href="#" class="download-btn" download>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7,10 12,15 17,10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </a>
+        <span class="close">&times;</span>
+      </div>
+      <img id="modalImage" src="" alt="">
+      <div class="bottom-buttons">
+        <button class="nav-btn prev-btn" aria-label="Previous image">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15,18 9,12 15,6"/>
+          </svg>
+        </button>
+        <button class="nav-btn next-btn" aria-label="Next image">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9,18 15,12 9,6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
     <div class="loading">
       Loading...<br>
       <img class="spinner" src="/spinner.svg" loading="eager">
@@ -131,26 +137,54 @@
   justify-content: center;
 }
 
+.image-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  max-height: 90vh;
+}
+
+.top-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
 /* Mobile modal adjustments */
 @media (max-width: 768px) {
   .modal-content {
     padding: 10px;
     width: 95%;
   }
+  
+  .top-buttons {
+    margin-bottom: 8px;
+  }
+  
+  .bottom-buttons {
+    margin-top: 8px;
+  }
 }
 
 .modal img {
   max-width: 100%;
-  max-height: 90vh;
+  max-height: 70vh;
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
 }
 
 .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
   color: white;
   font-size: 24px;
   font-weight: bold;
@@ -177,11 +211,8 @@
   transform: scale(1.1);
 }
 
-/* Download button - positioned opposite to close button */
+/* Download button */
 .download-btn {
-  position: absolute;
-  top: 20px;
-  left: 30px;
   color: white;
   cursor: pointer;
   z-index: 1001;
@@ -212,9 +243,6 @@
 
 /* Navigation buttons */
 .nav-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -232,7 +260,7 @@
 
 .nav-btn:hover {
   background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-50%) scale(1.1);
+  transform: scale(1.1);
 }
 
 .nav-btn:disabled {
@@ -242,25 +270,12 @@
 
 .nav-btn:disabled:hover {
   background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-50%) scale(1);
-}
-
-.prev-btn {
-  left: calc(50% - 650px);
-}
-
-.next-btn {
-  right: calc(50% - 650px);
+  transform: scale(1);
 }
 
 .nav-btn svg {
   width: 24px;
   height: 24px;
-}
-
-/* Adjust modal content back to original */
-.modal-content {
-  padding: 20px;
 }
 
 /* Mobile navigation adjustments */
@@ -270,21 +285,25 @@
     height: 50px;
   }
   
-  .prev-btn {
-    left: 15px;
-  }
-  
-  .next-btn {
-    right: 15px;
-  }
-  
   .nav-btn svg {
     width: 20px;
     height: 20px;
   }
   
-  .modal-content {
-    padding: 10px;
+  .close {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+  
+  .download-btn {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .download-btn svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -293,25 +312,29 @@
   width: auto;
 }
 
-/* Make buttons more touch-friendly on mobile */
+/* Mobile navigation adjustments */
 @media (max-width: 768px) {
+  .nav-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .nav-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+  
   .close {
-    top: 10px;
-    right: 15px;
+    width: 44px;
+    height: 44px;
     font-size: 20px;
-    width: 44px;
-    height: 44px;
-    padding: 12px;
   }
-
+  
   .download-btn {
-    top: 10px;
-    left: 15px;
     width: 44px;
     height: 44px;
-    padding: 12px;
   }
-
+  
   .download-btn svg {
     width: 20px;
     height: 20px;

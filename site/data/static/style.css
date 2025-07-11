@@ -587,8 +587,12 @@ code.ssh-command:hover {
     transform: translateY(-1px);
 }
 
-code.ssh-command:hover + .terminal-icon {
+.ssh-wrapper:hover .terminal-icon {
     animation: linkShake 0.6s ease-in-out;
+}
+
+.terminal-icon {
+    transition: all 0.3s ease;
 }
 /* Footer */
 footer {

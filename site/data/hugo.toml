@@ -5,6 +5,7 @@ title = 'Chausse Benjamin'
 # Enable cache busting for assets
 [params]
   version = "1.0"
+  favicon = "/favicon.ico"
 
 # Asset processing and fingerprinting
 [build]

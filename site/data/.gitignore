@@ -8,6 +8,9 @@ static/misc/chaussebenjamin.pdf
 *.png
 *.webp
 
+# Auto-generated CSS copy (Hugo asset processing)
+assets/style.css
+
 ### Hugo ###
 # Generated files by hugo
 /public/

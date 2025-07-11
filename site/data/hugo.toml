@@ -1,3 +1,38 @@
 baseURL = 'https://chausse.dev/'
 languageCode = 'en-ca'
 title = 'Chausse Benjamin'
+
+# Enable cache busting for assets
+[params]
+  version = "1.0"
+
+# Asset processing and fingerprinting
+[build]
+  writeStats = true
+
+# Cache control headers
+[caches]
+  [caches.getcsv]
+    maxAge = "10s"
+  [caches.getjson]
+    maxAge = "10s"
+  [caches.images]
+    maxAge = "60m"
+  [caches.assets]
+    maxAge = "60m"
+
+# Minification settings
+[minify]
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
+  disableJSON = false
+  disableSVG = false
+  disableXML = false
+  [minify.tdewolff]
+    [minify.tdewolff.html]
+      keepDefaultAttrVals = false
+      keepDocumentTags = true
+      keepEndTags = true
+      keepQuotes = false
+      keepWhitespace = false

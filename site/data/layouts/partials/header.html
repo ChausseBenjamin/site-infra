@@ -1,7 +1,7 @@
 <!-- Site header contains:
   - Favicon
-  - Fontawesome imports
-  - Stylesheet imports
+  - Critical CSS (inlined)
+  - Deferred CSS loading
 -->
 <head>
   {{- $title := .Title -}}
@@ -14,8 +14,190 @@
   {{- end -}}
 
   <link rel="canonical" href="{{ .Site.BaseURL }}">
-  <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
-  <link rel='stylesheet' type='text/css' href='/style.css'>
+  
+  {{- /* Critical CSS - inline the most important styles */ -}}
+  <style>
+    /* Critical CSS - Above the fold styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --bg-primary: #0C1113;
+      --bg-secondary: #12191C;
+      --bg-tertiary: #1F2D33;
+      --title-primary: #990000;
+      --text-primary: #f2f1f0;
+      --text-secondary: #9DB4BE;
+      --accent: #C93638;
+      --accent-hover: #E52E37;
+      --border: #27383F;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: 80px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Critical navigation styles */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(11, 17, 20, 0.69);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+    
+    /* Critical hero styles */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      padding: 0 2rem;
+    }
+    
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--title-primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero .subtitle {
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+    
+    .hero .description {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+    }
+    
+    /* Mobile hamburger menu */
+    .mobile-menu-toggle {
+      display: none;
+    }
+    
+    .hamburger {
+      width: 25px;
+      height: 3px;
+      background: var(--text-primary);
+      margin: 3px 0;
+      border-radius: 2px;
+    }
+    
+    .menu-checkbox {
+      display: none;
+    }
+    
+    @media (max-width: 800px) {
+      .mobile-menu-toggle {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: rgba(12, 17, 19, 0.95);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0;
+        padding-top: 2rem;
+        transition: left 0.3s ease;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero .subtitle {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+  
+  {{- /* Deferred CSS loading - fallback to static files */ -}}
+  <link rel="preload" href="/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin>
+  <noscript><link rel="stylesheet" href="/style.css"></noscript>
+  
+  {{- /* FontAwesome - load with low priority */ -}}
+  <link rel="preload" href="/vendor/fontawesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin>
+  <noscript><link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css"></noscript>
+  
+  {{- /* Fallback script for browsers that don't support preload */ -}}
+  <script>
+    !function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var i=e.document,d=i.createElement("link");if(n)d.href=n;else{if(!t)return;d.href=t.href,d.crossOrigin=t.crossOrigin}d.rel="stylesheet",d.media="only x",o(function(){i.head.appendChild(d)}),setTimeout(function(){d.addEventListener&&d.addEventListener("load",a),d.onloadcssdefined=a});var c=3e3;setTimeout(function(){a()},c)};e.loadCSS=t}(this);
+    loadCSS("/style.css");
+    loadCSS("/vendor/fontawesome/css/all.min.css");
+  </script>
+  
   {{ with .Site.Params.favicon }}<link rel="icon" href="{{ . }}">
   {{ end -}}
   <meta name="description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}">
@@ -23,4 +205,3 @@
   <meta name="robots" content="index, follow">
   <meta charset="utf-8">
 </head>
-  <!-- <title>{{ if not .IsHome }}{{ .Title | title }} | {{ end }}{{ .Site.Title }}</title> -->

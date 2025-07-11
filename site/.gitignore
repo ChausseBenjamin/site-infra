@@ -1,0 +1,9 @@
+# Build and deployment artifacts (project level)
+cache-manifest.txt
+resource-hints.txt
+manual-critical.css
+critical-temp.css
+lighthouse-report.json
+
+# Node modules if using npm performance tools
+node_modules/

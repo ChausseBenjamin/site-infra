@@ -11,12 +11,18 @@
             box-sizing: border-box;
         }
 
+        html {
+            height: 100%;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
             background-size: 400% 400%;
+            background-attachment: fixed;
             animation: gradientShift 8s ease infinite;
             min-height: 100vh;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;

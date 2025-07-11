@@ -2,6 +2,9 @@ baseURL = 'https://chausse.dev/'
 languageCode = 'en-ca'
 title = 'Chausse Benjamin'
 
+# Disable default taxonomies since we don't use them
+disableKinds = ["taxonomy", "term"]
+
 # Enable cache busting for assets
 [params]
   version = "1.0"

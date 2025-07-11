@@ -395,9 +395,13 @@ document.addEventListener('DOMContentLoaded', function() {
     currentImageIndex = index;
     const image = images[index];
     
-    // Show loading state
+    // Show loading state and hide buttons
     loading.style.display = 'block';
     modalImg.style.display = 'none';
+    
+    // Hide all buttons while loading
+    document.querySelector('.top-buttons').style.display = 'none';
+    document.querySelector('.bottom-buttons').style.display = 'none';
     
     // Update download button
     downloadBtn.href = image.fullSrc;
@@ -410,9 +414,16 @@ document.addEventListener('DOMContentLoaded', function() {
       modalImg.alt = image.alt;
       modalImg.style.display = 'block';
       loading.style.display = 'none';
+      
+      // Show buttons after image loads
+      document.querySelector('.top-buttons').style.display = 'flex';
+      document.querySelector('.bottom-buttons').style.display = 'flex';
     };
     img.onerror = function() {
       loading.textContent = 'Error loading image';
+      // Show buttons even on error
+      document.querySelector('.top-buttons').style.display = 'flex';
+      document.querySelector('.bottom-buttons').style.display = 'flex';
     };
     img.src = image.fullSrc;
     

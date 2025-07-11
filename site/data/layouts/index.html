@@ -242,23 +242,35 @@
               <div class="contact-item">
                 <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                 <div class="contact-label">Email</div>
-                <div class="contact-value"><a class="contact-value" href="mailto:benjamin@chausse.xyz">benjamin@chausse.xyz</a></div>
+                <div class="contact-value">
+                  <a class="contact-value" href="mailto:benjamin@chausse.xyz">
+                    <i class="fas fa-paper-plane clickable-icon"></i>benjamin@chausse.xyz
+                  </a>
+                </div>
               </div>
 
               <div class="contact-item">
                 <div class="contact-icon"><i class="far fa-newspaper"></i></div>
                 <div class="contact-label">CV</div>
-                <div class="contact-value"><a class="contact-value" href="/misc/chaussebenjamin-fr.pdf">chausebenjamin-fr.pdf<a></div>
-                <div class="contact-value"><a class="contact-value" href="/misc/chaussebenjamin-en.pdf">chausebenjamin-en.pdf<a></div>
+                <div class="contact-value">
+                  <a class="contact-value" href="/misc/chaussebenjamin-fr.pdf">
+                    <i class="fas fa-file-pdf clickable-icon"></i>chausebenjamin-fr.pdf
+                  </a><br>
+                  <a class="contact-value" href="/misc/chaussebenjamin-en.pdf">
+                    <i class="fas fa-file-pdf clickable-icon"></i>chausebenjamin-en.pdf
+                  </a>
+                </div>
               </div>
 
               <div class="contact-item">
                 <div class="contact-icon"><i class="fas fa-code-branch"></i></div>
-                <div class="contact-label">Git</div>
+                <div class="contact-label">Code</div>
                 <div class="contact-value">
-                  <a class="contact-value" href="https://github.com/ChausseBenjamin">Github</a><br>
+                  <a class="contact-value" href="https://github.com/ChausseBenjamin">
+                    <i class="fas fa-link clickable-icon"></i>Github
+                  </a><br>
                   Or just use your shell: <br>
-                  <i class="fas fa-terminal contact-value">&nbsp;</i><code class="contact-value">ssh git.chausse.dev</code>
+                  <i class="fas fa-terminal contact-value terminal-icon" id="terminalIcon">&nbsp;</i><code class="contact-value ssh-command" onclick="copyToClipboard('ssh git.chausse.dev')" title="Click to copy">ssh git.chausse.dev</code>
                 </div>
               </div>
 
@@ -268,5 +280,40 @@
 
 
   {{ partial "footer.html" }}
+
+  <script>
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+      // Show temporary feedback
+      const element = document.querySelector('.ssh-command');
+      const terminalIcon = document.getElementById('terminalIcon');
+      const originalText = element.textContent;
+      
+      // Update command text and styling
+      element.textContent = 'Copied!';
+      element.style.backgroundColor = 'var(--accent)';
+      element.style.color = 'white';
+      
+      // Update terminal icon to clipboard
+      terminalIcon.className = 'fas fa-clipboard contact-value terminal-icon';
+      
+      setTimeout(function() {
+        element.textContent = originalText;
+        element.style.backgroundColor = '';
+        element.style.color = '';
+        terminalIcon.className = 'fas fa-terminal contact-value terminal-icon';
+      }, 1500);
+    }).catch(function(err) {
+      console.error('Failed to copy text: ', err);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    });
+  }
+  </script>
   </body>
 </html>

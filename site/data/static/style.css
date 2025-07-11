@@ -556,11 +556,40 @@ a.contact-value {
 a.contact-value:hover {
     color: var(--accent);
 }
+
+.clickable-icon {
+    margin-right: 0.5rem;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+a.contact-value:hover .clickable-icon {
+    opacity: 1;
+    animation: linkShake 0.6s ease-in-out;
+}
 code.contact-value {
   color: #3FCE2C;
   background-color: var(--bg-secondary);
 }
 
+code.ssh-command {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid transparent;
+}
+
+code.ssh-command:hover {
+    background-color: #3FCE2C;
+    color: var(--bg-primary);
+    border-color: #3FCE2C;
+    transform: translateY(-1px);
+}
+
+code.ssh-command:hover + .terminal-icon {
+    animation: linkShake 0.6s ease-in-out;
+}
 /* Footer */
 footer {
     background: var(--bg-primary);

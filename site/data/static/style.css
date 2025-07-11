@@ -604,6 +604,22 @@ footer {
     margin-top: auto;
 }
 
+/* SVG Attribution - Made as unobtrusive as possible for legal compliance */
+footer a {
+    color: var(--bg-tertiary);
+    text-decoration: none;
+    font-size: 0.6rem;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+    display: block;
+    margin-top: 0.5rem;
+    letter-spacing: -0.2px;
+}
+
+footer a:hover {
+    opacity: 1;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero h1 {

@@ -451,6 +451,15 @@ a {
 
 .project-card:hover .project-title i {
     opacity: 1;
+    animation: linkShake 0.6s ease-in-out;
+}
+
+@keyframes linkShake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(8deg); }
+    50% { transform: rotate(-6deg); }
+    75% { transform: rotate(4deg); }
+    100% { transform: rotate(0deg); }
 }
 
 .project-description {

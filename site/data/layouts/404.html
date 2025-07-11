@@ -20,7 +20,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         @keyframes gradientShift {
@@ -222,31 +223,22 @@
         <p class="sub-message">
             Seriously, how did you manage to get lost on a website with like...
             <strong>three pages</strong>? That takes real talent!
-            <br><br>
-            Did you let your cat walk on the keyboard with the search bar
-            selected while you wandered off?
-            Or maybe you're just that special kind of explorer who finds
-            hidden paths where none exist?
-        </p>
-
-        <div class="compass" aria-hidden="true">🗺️</div>
-
-        <p class="sub-message">
-            As Bilbo once said to Frodo:
-        </p>
-
-        <blockquote class="sub-message" style="font-style: italic; margin: 1em 0;">
-            "It's a dangerous business, Frodo, going out your door. You step onto the road,
-            and if you don't keep your feet, there's no knowing where you might be swept off to."
-        </blockquote>
-        <p class="sub-message">
-            Let's get you back to civilization before you discover any more
-            "secret" pages that don't exist.
         </p>
 
         <a href="/" class="home-button">
             Take Me Home (Please!)
         </a>
+
+        <p class="sub-message" style="margin-top: 1rem;">
+            As Bilbo once said to Frodo:
+            <br><br>
+            <em>"It's a dangerous business, Frodo, going out your door. You step onto the road,
+            and if you don't keep your feet, there's no knowing where you might be swept off to."</em>
+            <br><br>
+            Well, you've certainly proven his point! Did you let your cat walk on the keyboard
+            while you wandered off? Or are you just that special kind of explorer who finds
+            hidden paths where none exist?
+        </p>
 
         <p class="sr-only">
             This is a 404 error page. The page you're looking for doesn't exist.

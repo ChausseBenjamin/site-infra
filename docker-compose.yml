@@ -5,28 +5,26 @@ include:
   - dyndns/docker-compose.yml
   - uptime/docker-compose.yml
   - vault/docker-compose.yml
-
 services:
   traeffik:
-    image: traefik:v3.1
+    image: traefik:v3.5.0
     container_name: traefik
     networks: [web]
     command: [--log.level=DEBUG]
     ports:
-      - 443:443  # https
-      - 80:80  # http
+      - 443:443 # https
+      - 80:80 # http
       # - 8080:8080  # dashboard (LAN only, do not expose)
     environment:
       - CF_DNS_API_TOKEN=${CLOUDFLARE_TOKEN}
       - DOMAIN=${DOMAIN}
       - ALT_DOMAIN=${ALT_DOMAIN}
       - EMAIL=${EMAIL}
-    extra_hosts: [host.docker.internal:host-gateway]
+    extra_hosts: ['host.docker.internal:host-gateway']
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik/traefik.yaml:/etc/traefik/traefik.yaml
       - ./traefik/certs:/var/traefik/certs:rw
     restart: unless-stopped
-
 networks:
   web:

@@ -1,17 +1,16 @@
 ---
 services:
   site:
-    image: nginx:1.28.0
+    image: nginx:1.29.0
     networks: [web]
-    ports: [1234:80]
+    ports: ['1234:80']
     volumes:
       - ./data/public:/usr/share/nginx/html:ro
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     labels:
       - traefik.enable=true
       - traefik.http.routers.site.tls.certresolver=cloudflare
-      - traefik.http.routers.site.rule=Host(`${DOMAIN}`) || Host(`${ALT_DOMAIN}`)
-        || HOST(`www.${DOMAIN}`) || HOST(`www.${ALT_DOMAIN}`)
+      - traefik.http.routers.site.rule=Host(`${DOMAIN}`) || Host(`${ALT_DOMAIN}`) || HOST(`www.${DOMAIN}`) || HOST(`www.${ALT_DOMAIN}`)
       - traefik.http.routers.site.tls.domains[0].main=${DOMAIN}
       - traefik.http.routers.site.tls.domains[0].sans=www.${DOMAIN}
       - traefik.http.routers.site.tls.domains[1].main=${ALT_DOMAIN}

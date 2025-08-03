@@ -1,9 +1,9 @@
 ---
 services:
   uptime:
-    image: louislam/uptime-kuma:1
+    image: louislam/uptime-kuma:1.23.16-alpine
     networks: [web]
-    ports: [3001:3001]
+    ports: ['3001:3001']
     volumes:
       - ./data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock

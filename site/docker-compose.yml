@@ -16,3 +16,4 @@ services:
       - traefik.http.routers.site.tls.domains[0].sans=www.${DOMAIN}
       - traefik.http.routers.site.tls.domains[1].main=${ALT_DOMAIN}
       - traefik.http.routers.site.tls.domains[1].sans=www.${ALT_DOMAIN}
+    restart: unless-stopped

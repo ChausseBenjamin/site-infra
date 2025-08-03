@@ -6,7 +6,7 @@ PORTFOLIO_DIR = $(HUGO_DIR)/public/portfolio
 CACHE_SCRIPT = tools/cache-optimize.sh
 
 .PHONY: all
-all: build progressivify
+all: build-optimized
 
 .PHONY: build
 build:

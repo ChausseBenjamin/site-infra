@@ -14,3 +14,4 @@ services:
       - traefik.http.routers.vault.rule=Host(`vault.${DOMAIN}`) || Host(`vault.${ALT_DOMAIN}`)
       - traefik.http.routers.vault.tls.domains[0].main=vault.${DOMAIN}
       - traefik.http.routers.vault.tls.domains[1].main=vault.${ALT_DOMAIN}
+    restart: unless-stopped

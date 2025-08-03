@@ -4,10 +4,13 @@ services:
     image: louislam/uptime-kuma:1
     networks: [web]
     ports: [3001:3001]
-    volumes: [./data:/app/data]
+    volumes:
+      - ./data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
     labels:
       - traefik.enable=true
       - traefik.http.routers.uptime.tls.certresolver=cloudflare
       - traefik.http.routers.uptime.rule=Host(`stats.${DOMAIN}`) || Host(`stats.${ALT_DOMAIN}`)
       - traefik.http.routers.uptime.tls.domains[0].main=${DOMAIN}
       - traefik.http.routers.uptime.tls.domains[1].main=${ALT_DOMAIN}
+    restart: unless-stopped

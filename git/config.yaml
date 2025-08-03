@@ -99,7 +99,7 @@ lfs:
   # Enable Git LFS.
   enabled: true
   # Enable Git SSH transfer.
-  ssh_enabled: false
+  ssh_enabled: true
 # Cron job configuration
 jobs:
   mirror_pull: '@every 10m'

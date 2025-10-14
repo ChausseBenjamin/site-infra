@@ -14,4 +14,5 @@ services:
       - traefik.http.routers.git.rule=Host(`git.${DOMAIN}`) || Host(`git.${ALT_DOMAIN}`)
       - traefik.http.routers.git.tls.domains[0].main=git.${DOMAIN}
       - traefik.http.routers.git.tls.domains[1].main=git.${ALT_DOMAIN}
+      - traefik.http.services.git.loadbalancer.server.port=23232
     restart: unless-stopped

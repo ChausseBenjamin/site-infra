@@ -1,0 +1,25 @@
+---
+services:
+  statping:
+    image: statping/statping:latest
+    networks: [web]
+    ports: ['2345:8080']
+    volumes:
+      - ./data:/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DB_CONN=sqlite
+      - DOMAIN=https://stats.${DOMAIN}
+      - LETSENCRYPT_HOST=stats.${DOMAIN}
+      - LETSENCRYPT_EMAIL=${EMAIL}
+      - NAME=Status Page
+      - DESCRIPTION=My Status Page
+      - ADMIN_USER=${STATPING_USER}
+      - ADMIN_PASSWORD=${STATPING_PASSWD}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.statping.tls.certresolver=cloudflare
+      - traefik.http.routers.statping.rule=Host(`stats.${DOMAIN}`) || Host(`stats.${ALT_DOMAIN}`)
+      - traefik.http.routers.statping.tls.domains[0].main=${DOMAIN}
+      - traefik.http.routers.statping.tls.domains[1].main=${ALT_DOMAIN}
+    restart: unless-stopped

@@ -3,7 +3,7 @@ include:
   - site/docker-compose.yml
   - git/docker-compose.yml
   - dyndns/docker-compose.yml
-  - uptime/docker-compose.yml
+  - stats/docker-compose.yml
   - vault/docker-compose.yml
 services:
   traeffik:

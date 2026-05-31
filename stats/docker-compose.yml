@@ -1,7 +1,7 @@
 ---
 services:
   stats:
-    image: statping/statping:latest
+    image: adamboutcher/statping-ng:latest
     networks: [web]
     ports: [2345:8080]
     volumes: [./data:/app, /var/run/docker.sock:/var/run/docker.sock]

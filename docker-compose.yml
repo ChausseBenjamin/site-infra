@@ -3,24 +3,24 @@ include:
   - site/docker-compose.yml
   - git/docker-compose.yml
   - dyndns/docker-compose.yml
-  - stats/docker-compose.yml
+  # - stats/docker-compose.yml
   - vault/docker-compose.yml
 services:
-  traeffik:
+  traefik:
     image: traefik:v3.5
     container_name: traefik
     networks: [web]
     command: [--log.level=DEBUG]
     ports:
-      - 443:443 # https
-      - 80:80 # http
-      # - 8080:8080  # dashboard (LAN only, do not expose)
+      - 443:443  # https
+      - 80:80  # http
+      # - 8080:8080  # dashboard+api (do not expose)
     environment:
       - CF_DNS_API_TOKEN=${CLOUDFLARE_TOKEN}
       - DOMAIN=${DOMAIN}
       - ALT_DOMAIN=${ALT_DOMAIN}
       - EMAIL=${EMAIL}
-    extra_hosts: ['host.docker.internal:host-gateway']
+    extra_hosts: [host.docker.internal:host-gateway]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik/traefik.yaml:/etc/traefik/traefik.yaml
